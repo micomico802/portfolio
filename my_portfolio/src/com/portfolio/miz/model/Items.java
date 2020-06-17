@@ -2,17 +2,17 @@ package com.portfolio.miz.model;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ItemBeans {
+public class Items {
     private String itemId = "";
     private String itemName = "";
     private String arrivalDate = "";
     private String makerName = "";
 
-    public ItemBeans() {
+    public Items() {
 
     }
 
-    public ItemBeans(HttpServletRequest request) {
+    public Items(HttpServletRequest request) {
         this.itemId = request.getParameter("item_id");
         this.itemName = request.getParameter("item_name");
         this.arrivalDate = request.getParameter("arrival_date");
@@ -20,7 +20,7 @@ public class ItemBeans {
     }
 
 
-    public ItemBeans(
+    public Items(
             String itemId,
             String itemName,
             String arrivalDate,

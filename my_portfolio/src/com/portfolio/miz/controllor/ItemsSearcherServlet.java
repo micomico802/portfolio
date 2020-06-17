@@ -1,6 +1,7 @@
 package com.portfolio.miz.controllor;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.portfolio.miz.model.ItemBeans;
+import com.portfolio.miz.model.DBConnector;
 import com.portfolio.miz.model.ItemDao;
+import com.portfolio.miz.model.Items;
 
 /**
  * Servlet implementation class SearchServlet
@@ -20,7 +22,7 @@ import com.portfolio.miz.model.ItemDao;
 @WebServlet("/ItemsSearcherServlet")
 public class ItemsSearcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private List<ItemBeans> list = new ArrayList<ItemBeans>();
+    private List<Items> list = new ArrayList<Items>();
     private ServletContext context;
 
     /**
@@ -44,11 +46,13 @@ public class ItemsSearcherServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
 		try {
-		    ItemBeans itemBeans = new ItemBeans(request);
- 
-		    ItemDao dao = new ItemDao();
+		    Items itemBeans = new Items(request);
+		    DBConnector connector = new DBConnector();
+            Connection conn = connector.connect();
+		    ItemDao dao = new ItemDao(conn);
 		    list = dao.fetch(itemBeans);
-
+		 // DBの切断
+            connector.destory(conn);
 
 		    request.setAttribute("result", list);
 

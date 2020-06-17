@@ -1,6 +1,7 @@
 package com.portfolio.miz.controllor;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.portfolio.miz.model.ItemBeans;
+import com.portfolio.miz.model.DBConnector;
 import com.portfolio.miz.model.ItemDao;
+import com.portfolio.miz.model.Items;
 
 /**
  * Servlet implementation class EditServlet
@@ -35,15 +37,14 @@ public class EditServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String mode = request.getParameter("mode");
-//        String itemId = request.getParameter("id");
-
 	    String status = "処理に成功しました";
 
-	    ItemBeans beans = new ItemBeans(request);
-//	    beans.setItemId(itemId);
+	    Items beans = new Items(request);
 
 	    try{
-	        ItemDao dao = new ItemDao();
+	        DBConnector connector = new DBConnector();
+	        Connection conn = connector.connect();
+	        ItemDao dao = new ItemDao(conn);
 
 	        switch (mode) {
 
@@ -74,6 +75,8 @@ public class EditServlet extends HttpServlet {
                 }
             break;
 	        }
+	        // DBの切断
+	        connector.destory(conn);
 	    }catch(Exception e) {
 	          e.printStackTrace();
 	      }

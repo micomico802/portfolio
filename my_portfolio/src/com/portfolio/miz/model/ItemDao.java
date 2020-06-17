@@ -3,7 +3,6 @@ package com.portfolio.miz.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +14,11 @@ public class ItemDao {
     protected ResultSet rset = null;
 
 
-    public ItemDao() throws ServletException,
-        ClassNotFoundException,
-        SQLException,
-        Exception{
-        DBConnector connection = new DBConnector();
-        conn = connection.connect();
+    public ItemDao(Connection conn) throws ServletException {
+        this.conn = conn;
     }
 
-    public int doInsert(ItemBeans beans)  throws Exception{
+    public int doInsert(Items beans)  throws Exception{
         StringBuffer sql = new StringBuffer();
         int resultCounter;
 
@@ -39,7 +34,7 @@ public class ItemDao {
         return resultCounter;
     }
 
-    public int doUpdate(ItemBeans beans)  throws Exception{
+    public int doUpdate(Items beans)  throws Exception{
         StringBuffer sql = new StringBuffer();
         int resultCounter;
 
@@ -67,9 +62,9 @@ public class ItemDao {
         return resultCounter;
     }
 
-    public List<ItemBeans> fetch(ItemBeans itemBeans) throws Exception{
+    public List<Items> fetch(Items itemBeans) throws Exception{
         StringBuffer sql = new StringBuffer();
-        List<ItemBeans> list = new ArrayList<ItemBeans>();
+        List<Items> list = new ArrayList<Items>();
 
         sql.append("select * from items_master where item_name like '%");
         sql.append(itemBeans.getItemName() + "%'");
@@ -90,7 +85,7 @@ public class ItemDao {
         rset = ps.executeQuery();
 
         while(rset.next()) {
-            ItemBeans beans = new ItemBeans();
+            Items beans = new Items();
                    beans.setItemId(String.valueOf(rset.getLong("item_id")));
                    beans.setItemName(rset.getString("item_name"));
                    beans.setArrivalDate(String.valueOf(rset.getTimestamp("arrival_date")));
