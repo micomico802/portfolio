@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<Context>
+	<Resource name="jdbc/items" auth="Container"
+		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
+		maxWaitMillis="-1" username="portfolio_user" password="password"
+		driverClassName="org.postgresql.Driver" useSSL="false"
+		url="jdbc:postgresql://localhost:5432/portfolio?serverTimezone=UTC" />
+</Context>
