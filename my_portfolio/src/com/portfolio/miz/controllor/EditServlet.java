@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.portfolio.miz.model.DBConnector;
-import com.portfolio.miz.model.ItemDao;
 import com.portfolio.miz.model.Items;
+import com.portfolio.miz.model.ItemsDao;
+import com.portfolio.miz.model.ItemsDaoImpl;
 
 /**
  * Servlet implementation class EditServlet
@@ -44,7 +45,7 @@ public class EditServlet extends HttpServlet {
 	    try{
 	        DBConnector connector = new DBConnector();
 	        Connection conn = connector.connect();
-	        ItemDao dao = new ItemDao(conn);
+	        ItemsDao dao = new ItemsDaoImpl(conn);
 
 	        switch (mode) {
 

@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.portfolio.miz.model.DBConnector;
-import com.portfolio.miz.model.ItemDao;
 import com.portfolio.miz.model.Items;
+import com.portfolio.miz.model.ItemsDao;
+import com.portfolio.miz.model.ItemsDaoImpl;
 
 /**
  * Servlet implementation class SearchServlet
@@ -49,7 +50,7 @@ public class ItemsSearcherServlet extends HttpServlet {
 		    Items itemBeans = new Items(request);
 		    DBConnector connector = new DBConnector();
             Connection conn = connector.connect();
-		    ItemDao dao = new ItemDao(conn);
+		    ItemsDao dao = new ItemsDaoImpl(conn);
 		    list = dao.fetch(itemBeans);
 		 // DBの切断
             connector.destory(conn);
