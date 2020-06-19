@@ -9,7 +9,6 @@ public class Items {
     private String makerName = "";
 
     public Items() {
-
     }
 
     public Items(HttpServletRequest request) {
@@ -19,12 +18,12 @@ public class Items {
         this.makerName = request.getParameter("maker_name");
     }
 
-
     public Items(
             String itemId,
             String itemName,
             String arrivalDate,
             String makerName) {
+
         this.itemId =itemId;
         this.itemName = itemName;
         this.arrivalDate = arrivalDate;

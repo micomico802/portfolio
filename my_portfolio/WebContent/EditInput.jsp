@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.portfolio.miz.model.ItemBeans"%>
+<%@ page import="com.portfolio.miz.model.Items"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,9 @@
 <title>検索画面</title>
 </head>
 <body>
-	<% ItemBeans beans = (ItemBeans) request.getAttribute("beans"); %>
+	<%
+	    Items beans = (Items) request.getAttribute("beans");
+	%>
 	<br>
 	 更新したい項目を修正してください。
 	<br>

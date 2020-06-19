@@ -38,7 +38,7 @@ public class EditServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String mode = request.getParameter("mode");
-	    String status = "処理に成功しました";
+	    String status = "処理に失敗しました";
 
 	    Items beans = new Items(request);
 
@@ -50,16 +50,16 @@ public class EditServlet extends HttpServlet {
 	        switch (mode) {
 
 	        case "insert":
-	            int resultInsertCounter = dao.doInsert(beans);
-                if(resultInsertCounter == 0) {
-                      status = "処理に失敗しました";
+	            boolean isInsertResult = dao.doInsert(beans);
+                if(isInsertResult) {
+                      status = "処理に成功しました";
                     }
                 break;
 
 	        case "delete":
-	            int resultDeleteCounter = dao.doDelete(beans.getItemId());
-	            if(resultDeleteCounter == 0) {
-	                  status = "処理に失敗しました";
+	            boolean isDeleteResult = dao.doDelete(beans.getItemId());
+                if(isDeleteResult) {
+                    status = "処理に成功しました";
 	                }
 	            break;
 
@@ -70,9 +70,9 @@ public class EditServlet extends HttpServlet {
 
 
 	        case "doUpdate":
-	        int resultUpdateCounter = dao.doUpdate(beans);
-            if(resultUpdateCounter == 0) {
-                  status = "処理に失敗しました";
+	            boolean isUpdateResult = dao.doUpdate(beans);
+            if(isUpdateResult) {
+                status = "処理に成功しました";
                 }
             break;
 	        }

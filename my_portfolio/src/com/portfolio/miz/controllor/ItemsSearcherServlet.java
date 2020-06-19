@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +23,6 @@ import com.portfolio.miz.model.ItemsDaoImpl;
 public class ItemsSearcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private List<Items> list = new ArrayList<Items>();
-    private ServletContext context;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,10 +30,6 @@ public class ItemsSearcherServlet extends HttpServlet {
     public ItemsSearcherServlet() {
         super();
         // TODO Auto-generated constructor stub
-    }
-
-    public void init() throws ServletException {
-        context = getServletContext();
     }
 
 	/**
@@ -46,7 +40,6 @@ public class ItemsSearcherServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-		try {
 		    Items itemBeans = new Items(request);
 		    DBConnector connector = new DBConnector();
             Connection conn = connector.connect();
@@ -61,13 +54,6 @@ public class ItemsSearcherServlet extends HttpServlet {
 //		    session.setAttribute("result", list);
 
 		    request.getRequestDispatcher("/SearchResult.jsp").forward(request, response);
-
-		}catch(Exception e){
-            e.printStackTrace();
-
-//            String status ="検索に失敗しました。管理者に連絡してください。";
-//          request.setAttribute("status", status);
-//          request.getRequestDispatcher("/result.jsp").forward(request, response);
 
 		}
 	}
