@@ -93,7 +93,7 @@ public class ItemsDaoImpl implements ItemsDao {
     }
 
     @Override
-    public List<Items> fetch(Items items){
+    public List<Items> fetch(Items items) {
         StringBuffer sql = new StringBuffer();
         List<Items> list = new ArrayList<Items>();
 
@@ -125,7 +125,7 @@ public class ItemsDaoImpl implements ItemsDao {
                list.add(itemsSearch);
             }
 
-        }catch(SQLException e) {
+        } catch(SQLException e) {
             e.printStackTrace();
         }
         return list;

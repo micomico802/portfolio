@@ -15,5 +15,7 @@
 	パスワード:<input type = "text" name = "pass"><br><br>
 	<button type = "submit">送信</button>
 	</form>
+
+	<button onclick="location.href= '/my_portfolio/RegisterForm.jsp' ">新規登録</button><br><br>
 </body>
 </html>
