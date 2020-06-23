@@ -11,8 +11,8 @@
 	<br><br>
 	<%= firstComment %><br><br>
 	<form action = "/my_portfolio/LoginServlet" method = "POST">
-	ID:  <input type = "text" name = "id"><br><br>
-	パスワード:<input type = "text" name = "pass"><br><br>
+	ID:  <input type = "text" name = "user_id"><br><br>
+	パスワード:<input type = "password" name = "password"><br><br>
 	<button type = "submit">送信</button>
 	</form>
 

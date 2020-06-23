@@ -56,6 +56,5 @@ public class ItemsSearcherServlet extends HttpServlet {
 		    request.getRequestDispatcher("/SearchResult.jsp").forward(request, response);
 
 		}
-	}
 
 }

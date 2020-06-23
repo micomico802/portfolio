@@ -1,6 +1,7 @@
 package com.portfolio.miz.controllor;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.portfolio.miz.model.DBConnector;
+import com.portfolio.miz.model.users.dao.UsersDao;
+import com.portfolio.miz.model.users.dao.UsersDaoImpl;
+import com.portfolio.miz.model.users.entity.Users;
 
 /**
  * Servlet implementation class LoginServlet
@@ -25,33 +31,33 @@ public class LoginServlet extends HttpServlet {
     }
 
     /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            // TODO Auto-generated method stub
-           // 変数の初期設定
-        String status = "ログインに失敗しました";
-        String name = null;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        String id =request.getParameter("id");
-        String pass = request.getParameter("pass");
+        response.setCharacterEncoding("UTF-8");
 
-        if(id.equals("test") && pass.equals("xxxx")) {
-            status = "ログイン成功";
-            name = "ぽん";
+        String userId = request.getParameter("user_id");
+        String password = request.getParameter("password");
 
-            request.setAttribute("login", status);
+        DBConnector connector = new DBConnector();
+        Connection conn = connector.connect();
+        UsersDao dao = new UsersDaoImpl(conn);
+        Users users = dao.fetch(userId, password);
+
+        if (users.getLoginAddress() != null) {
 
             HttpSession session = request.getSession(true);
-            session.setAttribute("name", name);
+            session.setAttribute("login_info", users);
 
-            request.getRequestDispatcher("/TopView.jsp").forward(request, response);
-        }else {
+            request.getRequestDispatcher("/WorkChoiceView.jsp").forward(request, response);
 
-        request.setAttribute("login", status);
+        } else {
 
-        request.getRequestDispatcher("/LoginFailed.jsp").forward(request, response);
+            request.getRequestDispatcher("/LoginFailed.jsp").forward(request, response);
         }
     }
 

@@ -29,6 +29,6 @@
 	</form>
 
 	<br><br>
-	<a href="/my_portfolio/TopView.jsp">トップ画面に戻る</a>
+	<a href="/my_portfolio/WorkChoiceView.jsp">トップ画面に戻る</a>
 </body>
 </html>

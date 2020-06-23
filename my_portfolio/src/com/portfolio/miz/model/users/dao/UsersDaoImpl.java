@@ -19,6 +19,34 @@ public class UsersDaoImpl implements UsersDao {
     }
 
     @Override
+    public Users fetch(String userId, String password) {
+        Users users = null;
+
+        String sql = "SELECT * FROM users_master WHERE "
+                + "login_address = ? "
+                + "AND login_password = ?"
+                + "AND deleted_at IS NULL ;";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, userId);
+            ps.setString(2, password);
+            rset = ps.executeQuery();
+
+            while (rset.next()) {
+                users = new Users();
+                users.setLoginAddress(rset.getString("login_address"));
+                users.setLoginPassword(rset.getString("login_password"));
+                users.setUserName(rset.getString("user_name"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        return users;
+    }
+
+    @Override
     public boolean registrationCheck(Users users) {
         String sql = "SELECT * FROM users_master WHERE login_address = ? ;";
         try {
@@ -26,11 +54,11 @@ public class UsersDaoImpl implements UsersDao {
             ps.setString(1, users.getLoginAddress());
             rset = ps.executeQuery();
 
-            if(rset.next()) {
+            if (rset.next()) {
                 return false;
             }
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
 
         }
@@ -49,17 +77,17 @@ public class UsersDaoImpl implements UsersDao {
                 + ") VALUES (?, ?, ?)";
 
         try {
-        ps = conn.prepareStatement(new String(sql));
-        ps.setString(1, users.getLoginAddress());
-        ps.setString(2, users.getLoginPassword());
-        ps.setString(3, users.getUserName());
-        resultCounter = ps.executeUpdate();
+            ps = conn.prepareStatement(new String(sql));
+            ps.setString(1, users.getLoginAddress());
+            ps.setString(2, users.getLoginPassword());
+            ps.setString(3, users.getUserName());
+            resultCounter = ps.executeUpdate();
 
-        if(resultCounter != 0) {
-            isResult = true;
-        }
+            if (resultCounter != 0) {
+                isResult = true;
+            }
 
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return isResult;
